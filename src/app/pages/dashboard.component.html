@@ -1,0 +1,35 @@
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">Panel de Control</h1>
+        <p class="lead text-muted">Administra entradas, salidas y vehículos registrados</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-lg border-0 h-100">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-car-front-fill text-primary fs-1"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Vehículos</h5>
+                    <p class="card-text text-muted">Registrar y listar vehículos permitidos.</p>
+                    <a routerLink="/vehiculos" class="btn btn-primary btn-lg">Ir a Vehículos</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-lg border-0 h-100">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-clock-history text-success fs-1"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Estancias</h5>
+                    <p class="card-text text-muted">Gestiona entradas y salidas de vehículos. Genera reportes con los registros.</p>
+                    <a routerLink="/estancias" class="btn btn-success btn-lg me-2">Ver Lista</a>
+                    <a routerLink="/estancias/registro" class="btn btn-outline-success btn-lg mt-2">Nueva Entrada</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

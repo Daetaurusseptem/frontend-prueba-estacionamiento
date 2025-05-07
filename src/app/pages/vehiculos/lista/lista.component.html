@@ -1,0 +1,54 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Lista de Vehículos</h2>
+      <button class="btn btn-primary" (click)="irANuevo()">Registrar Nuevo</button>
+    </div>
+  
+    <div class="row g-2 mb-3">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="filtro"
+          placeholder="Buscar por placa o tipo..."
+        />
+      </div>
+      <div class="col-md-6">
+        <select class="form-select" [(ngModel)]="tipoFiltro">
+          <option value="">Todos los tipos</option>
+          <option value="oficial">Oficial</option>
+          <option value="residente">Residente</option>
+          <option value="no_residente">No Residente</option>
+        </select>
+      </div>
+    </div>
+  
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Placa</th>
+          <th>Tipo</th>
+          <th style="width: 180px;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vehiculo of vehiculosFiltrados">
+          <td>{{ vehiculo.placa }}</td>
+          <td>{{ vehiculo.tipo }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-2" (click)="editar(vehiculo.id!)">Editar</button>
+            <button class="btn btn-sm btn-danger" (click)="eliminar(vehiculo.id!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="vehiculosFiltrados.length === 0" class="alert alert-info">
+      No se encontraron vehículos con ese criterio.
+    </div>
+  
+    <div class="mt-4">
+      <button class="btn btn-secondary" (click)="volverAlDashboard()">Volver al Dashboard</button>
+    </div>
+  </div>
+  

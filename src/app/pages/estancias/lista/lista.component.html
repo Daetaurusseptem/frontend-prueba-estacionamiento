@@ -1,0 +1,105 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Estancias</h2>
+      <button class="btn btn-primary" (click)="irARegistrar()">Registrar Entrada</button>
+    </div>
+  
+    <div class="row g-2 mb-3">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="filtro"
+          (ngModelChange)="filtro = $event; onFiltroChange($event)"
+          placeholder="Buscar por placa"
+        />
+      </div>
+      <div class="col-md-6">
+        <select class="form-select" [(ngModel)]="tipoFiltro">
+          <option value="">Todos los tipos</option>
+          <option value="oficial">Oficial</option>
+          <option value="residente">Residente</option>
+          <option value="no_residente">No Residente</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-12 d-flex align-items-center gap-2 mb-2">
+        <input type="checkbox" class="form-check-input" [(ngModel)]="usarRangoFechas" id="rangoCheck" />
+        <label class="form-check-label" for="rangoCheck">Filtrar por rango de fechas</label>
+      </div>
+      
+      <div class="col-md-6" *ngIf="usarRangoFechas">
+        <label class="form-label">Desde</label>
+        <input type="date" class="form-control" [(ngModel)]="fechaInicio" />
+      </div>
+      
+      <div class="col-md-6 mb-2" *ngIf="usarRangoFechas">
+        <label class="form-label">Hasta</label>
+        <input type="date" class="form-control" [(ngModel)]="fechaFin" />
+      </div>
+  
+
+      <div class="d-flex justify-content-end gap-2 mb-3">
+        <button class="btn btn-outline-success" (click)="generarReporte('excel')">Exportar Excel</button>
+        <button class="btn btn-outline-danger" (click)="generarReporte('pdf')">Exportar PDF</button>
+      </div>
+
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Placa</th>
+          <th>Tipo</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+          <th>Tiempo</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of estanciasFiltradas">
+          <ng-container *ngIf="e && e.vehiculo">
+            <td>{{ e.vehiculo.placa }}</td>
+            <td>
+              <span class="badge text-bg-primary" *ngIf="e.vehiculo.tipo === 'residente'">Residente</span>
+              <span class="badge text-bg-success" *ngIf="e.vehiculo.tipo === 'oficial'">Oficial</span>
+              <span class="badge text-bg-dark" *ngIf="e.vehiculo.tipo === 'no_residente'">No Residente</span>
+            </td>
+            <td>{{ e.horaEntrada | date: 'short' }}</td>
+            <td>{{ e.horaSalida ? (e.horaSalida | date: 'short') : '—' }}</td>
+            <td>{{ e.tiempoTotalMin ?? '—' }} min</td>
+            <td>{{ formatearTotal(e.totalPagar) }}</td>
+
+            <td>
+              <span class="badge" [ngClass]="{
+                'bg-success': !e.horaSalida,
+                'bg-secondary': e.horaSalida
+              }">
+                {{ e.horaSalida ? 'Finalizada' : 'Activa' }}
+              </span>
+            </td>
+            <td>
+              <div class="btn-group btn-group-sm">
+                <button class="btn btn-info" (click)="irADetalle(e.id!)">Detalle</button>
+                <button *ngIf="!e.horaSalida" class="btn btn-danger" (click)="irACerrar(e.id!)">
+                  Registrar Salida
+                </button>
+              </div>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="estanciasFiltradas.length === 0" class="alert alert-warning">
+      No se encontraron estancias con ese criterio.
+    </div>
+  
+    <div class="mt-4">
+      <button class="btn btn-secondary" (click)="volverAlDashboard()">
+        Volver al Dashboard
+      </button>
+    </div>
+  </div>
+  

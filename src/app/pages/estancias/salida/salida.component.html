@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <h2>Registrar Salida</h2>
+  
+    <div class="mb-3">
+      <label for="estancia" class="form-label">Seleccionar Estancia Activa</label>
+      <select class="form-select" [(ngModel)]="estanciaSeleccionadaId" id="estancia">
+        <option *ngFor="let e of estanciasActivas" [value]="e.id">
+          {{ e.vehiculo?.placa }} - Entrada: {{ e.horaEntrada | date:'short' }}
+        </option>
+      </select>
+    </div>
+  
+    <div class="form-check form-switch mb-3">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="horaActualSwitch"
+        [(ngModel)]="usarHoraActual"
+      />
+      <label class="form-check-label" for="horaActualSwitch">
+        Usar hora actual
+      </label>
+    </div>
+  
+    <div class="mb-3" *ngIf="!usarHoraActual">
+      <label for="horaCustom" class="form-label">Hora de salida personalizada</label>
+      <input
+        type="datetime-local"
+        class="form-control"
+        [(ngModel)]="horaCustom"
+        id="horaCustom"
+      />
+    </div>
+  
+    <div class="d-flex gap-3">
+      <button class="btn btn-primary" (click)="cerrarEstancia()">Registrar Salida</button>
+      <button class="btn btn-secondary" (click)="volver()">Volver al Dashboard</button>
+    </div>
+  </div>
+  

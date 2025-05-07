@@ -1,0 +1,13 @@
+<h2>Detalle del Vehículo</h2>
+
+<div *ngIf="vehiculo; else cargando">
+  <p><strong>Placa:</strong> {{ vehiculo.placa }}</p>
+  <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
+
+  <button (click)="editar()">Editar</button>
+  <button (click)="volver()">Volver</button>
+</div>
+
+<ng-template #cargando>
+  <p>Cargando datos del vehículo...</p>
+</ng-template>

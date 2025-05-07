@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <h2>{{ editMode ? 'Editar Vehículo' : 'Registrar Vehículo' }}</h2>
+  
+    <form (ngSubmit)="guardar()" #vehForm="ngForm" class="mt-4">
+      <div class="mb-3">
+        <label for="placa" class="form-label">Placa</label>
+        <input
+          type="text"
+          id="placa"
+          class="form-control"
+          required
+          [(ngModel)]="vehiculo.placa"
+          name="placa"
+        />
+      </div>
+  
+      <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo de Vehículo</label>
+        <select
+          id="tipo"
+          class="form-select"
+          [(ngModel)]="vehiculo.tipo"
+          name="tipo"
+          required
+        >
+          <option value="oficial">Oficial</option>
+          <option value="residente">Residente</option>
+          <option value="no_residente">No Residente</option>
+        </select>
+      </div>
+  
+      <div class="d-flex gap-3">
+        <button class="btn btn-success" type="submit" [disabled]="!vehForm.form.valid">
+          {{ editMode ? 'Actualizar' : 'Registrar' }}
+        </button>
+        <button class="btn btn-secondary" type="button" (click)="volverAlDashboard()">Volver al Dashboard</button>
+      </div>
+    </form>
+  </div>
+  

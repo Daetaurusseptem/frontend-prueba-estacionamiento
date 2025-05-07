@@ -1,0 +1,16 @@
+<h2>Detalle de Estancia</h2>
+
+<div *ngIf="estancia; else cargando">
+  <p><strong>Placa:</strong> {{ estancia.vehiculo?.placa }}</p>
+  <p><strong>Tipo:</strong> {{ estancia.vehiculo?.tipo }}</p>
+  <p><strong>Hora de Entrada:</strong> {{ estancia.horaEntrada | date:'short' }}</p>
+  <p><strong>Hora de Salida:</strong> {{ estancia.horaSalida ? (estancia.horaSalida | date:'short') : '—' }}</p>
+  <p><strong>Minutos Totales:</strong> {{ estancia.tiempoTotalMin ?? '—' }}</p>
+  <p><strong>Total a Pagar:</strong> {{ estancia.totalPagar !== undefined ? ('$' + estancia.totalPagar) : '—' }}</p>
+
+  <button (click)="volver()">Volver</button>
+</div>
+
+<ng-template #cargando>
+  <p>Cargando detalles...</p>
+</ng-template>
