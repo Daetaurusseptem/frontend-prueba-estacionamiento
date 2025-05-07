@@ -10,6 +10,7 @@ Este es el cliente web desarrollado con Angular 18 para interactuar con el backe
 ## 📦 Instalación
 
 ```bash
+npm install -g @angular/cli
 npm install
 ```
 
